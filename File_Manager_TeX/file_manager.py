@@ -9,11 +9,8 @@ import shutil as sh # To manipulate files
 RAW STRUCTURE :
 1. working directory creation -> specifiy where the directory
 should be created
-2. getting informations + strings from latex_interface.py to create .tex files
-3. creating appropriate .tex files + copying in tex_res directory
-templates + .tex sources files used for detection
+2. driving latex_interface.py functions to set up the directory
+3. Process user input like source files and macros
 4. Providing easy-to-use functions for GUI interface
 """
-
-
 
