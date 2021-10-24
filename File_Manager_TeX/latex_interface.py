@@ -52,7 +52,7 @@ def modifying_tex(filename):
 """
         )
         file.close()
-modifying_tex("test.tex")
+# modifying_tex("test.tex")
 
 def search_index_tex(filename):
     """
@@ -78,5 +78,20 @@ def search_index_tex(filename):
         content = file.readlines()
         index_doc = search_index_tex(content)
     return index_doc
-search_index_tex("test.tex")
+# search_index_tex("test.tex")
+def make_dummy(fname,text):
+    with open(fname,'w') as file:
+        file.write(text)
 
+def make_folder(fdname):
+    folder_name = fdname
+    folder_path = "C:\\Users\\Lorinfo\\Documents\\GitHub\\LaTeX-Project-Manager\\{name}".format(name=folder_name)
+    try:
+        os.makedirs(folder_path)    
+        print("Directory ",folder_name," Created ")
+    except FileExistsError:
+        print("Directory ",folder_name," already exists")
+
+# make_folder("Folder_test\\Folder2")
+# make_dummy("C:\\Users\\Lorinfo\\Documents\\GitHub\\LaTeX-Project-Manager\\Folder_test\\Folder2\\dummy2.txt","Hello World")
+# shutil.copyfile("C:\\Users\\Lorinfo\\Documents\\GitHub\\LaTeX-Project-Manager\\Folder_test\\Folder2\\dummy2.txt","C:\\Users\\Lorinfo\\Documents\\GitHub\\LaTeX-Project-Manager\\Folder_test\\Folder1\\dummy2.txt")

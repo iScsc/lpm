@@ -1,0 +1,71 @@
+% ===========================================
+% Définition de macros complexes
+% ===========================================
+\begingroup
+    \def\tmpa#1{%
+        \if\relax#1 \expandafter\noexpand \else
+            \expandafter\gdef\csname double#1\endcsname{\mathbb #1} %
+            \expandafter\gdef\csname script#1\endcsname{\mathcal #1} %
+			\expandafter\gdef\csname frak#1\endcsname{\mathfrak #1} %
+            \expandafter\gdef\csname cal#1\endcsname{\mathscr #1} %
+        \fi \tmpa
+    }
+    \tmpa ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\relax
+\endgroup
+%====================================================
+%####################################################
+%====================================================
+\def\restriction#1#2{\mathchoice
+              {\setbox1\hbox{${\displaystyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\textstyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptscriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}}
+\def\restrictionaux#1#2{{#1\,\smash{\vrule height .8\ht1 depth .85\dp1}}_{\,#2}}
+\newcommand{\de}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}} % dérivée
+\newcommand{\vect}[2]{\vv{#1_{#2}}} % vecteur de 
+\newcommand{\dep}[1]{\frac{\partial}{\partial#1}} % dérivée partielle nabla
+\newcommand{\rot}[1]{\vv{\mathrm{rot}}\left(#1\right)}
+\newcommand{\grade}[1]{\vv{\mathrm{grad}}\left(#1\right)}
+\newcommand{\dive}[1]{\mathrm{div}\left(#1\right)}
+% à remplacer par un snippet
+\newcommand{\func}[5]{
+    \begin{align*}
+    #1\colon #2 & \longrightarrow #3\\
+    #4&\longmapsto #5
+    \end{align*}  
+}
+% ===========================================
+% Définition d'opérateurs mathématiques
+% ===========================================
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\argsh}{argsh}
+\DeclareMathOperator{\argth}{argth}
+\DeclareMathOperator{\argch}{argch}
+\DeclareMathOperator{\argcoth}{argcoth}
+\DeclareMathOperator{\arsech}{arsech}
+\DeclareMathOperator{\arcsch}{arcsch}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\Sp}{Sp}
+% ===========================================
+% Définition des environnements mathématiques
+% ===========================================
+\theoremstyle{plain}
+\newtheorem{theorem}{Théorème}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Définition}
+\newtheorem{corollary}{Corollaire}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remarque}
+\newtheorem{lemma}{Lemme}
