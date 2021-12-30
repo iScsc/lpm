@@ -1,0 +1,74 @@
+%% Start of the file 'mypackage.sty'.
+%% Copyright 2021 Nicolas LESQUOY ('nicolas.lesquoy@gmail.com').
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+% #################################################
+% IDENTIFICATION
+% #################################################
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mypackage}[2021/12/29 v1 macros personnelles]
+% #################################################
+% PACKAGE CONSTRUCTION
+% #################################################
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathrsfs}
+\RequirePackage{mathtools}
+\RequirePackage{dsfont}
+\RequirePackage[g]{esvect}
+% COMMAND DECLARATION
+\begingroup
+    \def\tmpa#1{%
+        \if\relax#1 \expandafter\noexpand \else
+            \expandafter\gdef\csname double#1\endcsname{\mathbb #1} %
+            \expandafter\gdef\csname script#1\endcsname{\mathcal #1} %
+            \expandafter\gdef\csname frak#1\endcsname{\mathfrak #1} %
+            \expandafter\gdef\csname cal#1\endcsname{\mathscr #1} %
+        \fi\tmpa
+    }
+    \tmpa ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\relax
+\endgroup
+% Fonctions trigonométriques (circulaires et hyperboliques):
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\argsh}{argsh}
+\DeclareMathOperator{\argth}{argth}
+\DeclareMathOperator{\argch}{argch}
+\DeclareMathOperator{\argcoth}{argcoth}
+\DeclareMathOperator{\arsech}{arsech}
+\DeclareMathOperator{\arcsch}{arcsch}
+% Opérateurs divers:
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\tr}{tr}
+% Opérateurs vectoriels:
+\newcommand{\ull}[1]{\underline{\underline{#1}}}
+\DeclareMathOperator{\deviateur}{\ull{\mathrm{dev}}} % Tenseur déviateur
+\DeclareMathOperator{\Div}{div} % Opérateur divergence
+\DeclareMathOperator{\Divv}{\underline{\mathrm{div}}} % Divergence vectorielle
+\DeclareMathOperator{\grad}{\vv{\mathrm{grad}}} % Gradient
+\DeclareMathOperator{\Grad}{\ull{\mathrm{grad}}} % Tenseur gradient
+\DeclareMathOperator{\rot}{\vv{\mathrm{rot}}} % Rotationnel
+\DeclareMathOperator{\laplacien}{\nabla}
+\DeclareMathOperator{\laplacienv}{\overline{\nabla}}
+\def\restriction#1#2{\mathchoice
+              {\setbox1\hbox{${\displaystyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\textstyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptscriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}}
+\def\restrictionaux#1#2{{#1\,\smash{\vrule height .8\ht1 depth .85\dp1}}_{\,#2}}
+\def\suplim{\mathop{\overline{\lim}}}
+\def\inflim{\mathop{\underline{\lim}}}
+\def\ind{\mathds{1}}
+% end of the file

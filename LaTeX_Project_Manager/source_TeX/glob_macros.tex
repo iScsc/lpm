@@ -1,0 +1,74 @@
+% ===========================================
+% Définition de macros complexes
+% ===========================================
+\begingroup
+    \def\tmpa#1{%
+        \if\relax#1 \expandafter\noexpand \else
+            \expandafter\gdef\csname double#1\endcsname{\mathbb #1} %
+            \expandafter\gdef\csname script#1\endcsname{\mathcal #1} %
+			\expandafter\gdef\csname frak#1\endcsname{\mathfrak #1} %
+            \expandafter\gdef\csname cal#1\endcsname{\mathscr #1} %
+        \fi \tmpa
+    }
+    \tmpa ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\relax
+\endgroup
+%====================================================
+%####################################################
+%====================================================
+\def\restriction#1#2{\mathchoice
+              {\setbox1\hbox{${\displaystyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\textstyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptscriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}}
+\def\restrictionaux#1#2{{#1\,\smash{\vrule height .8\ht1 depth .85\dp1}}_{\,#2}}
+% ===========================================
+% Définition d'opérateurs mathématiques
+% ===========================================
+% Fonctions trigonométriques (circulaires et hyperboliques)
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\argsh}{argsh}
+\DeclareMathOperator{\argth}{argth}
+\DeclareMathOperator{\argch}{argch}
+\DeclareMathOperator{\argcoth}{argcoth}
+\DeclareMathOperator{\arsech}{arsech}
+\DeclareMathOperator{\arcsch}{arcsch}
+% Opérateurs divers
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\tr}{tr}
+% Définitions des opérateurs vectoriels :
+\DeclareMathOperator{\dev}{dev}
+\newcommand{\ull}[1]{\underline{\underline{#1}}}
+\DeclareMathOperator{\Div}{div}
+\newcommand{\divv}{\underline{\Div}}
+\newcommand{\grad}{\vv{\mathrm{grad}}}
+\newcommand{\gradt}{\ull{\mathrm{grad}}}
+\newcommand{\rot}{\vv{\mathrm{rot}}}
+% ===========================================
+% Définition des environnements mathématiques
+% ===========================================
+\theoremstyle{plain}
+\newtheorem{theorem}{Théorème}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Définition}
+\newtheorem{corollary}{Corollaire}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remarque}
+\newtheorem{lemma}{Lemme}
+% ###########################################
+% MACROS TEXTE
+% ###########################################
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}} % Pour avoir des chiffres correctement entourés
+\newcommand{\todop}[1]{{\color{red}\texttt{\textbf{TO DO: #1}}}}

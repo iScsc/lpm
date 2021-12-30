@@ -1,0 +1,45 @@
+\documentclass[]{}
+% ############################################
+% Packages standards
+% ############################################
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+% --------------------------------------------
+% Choix des fontes :
+%\usepackage{lmodern}
+\usepackage[boldsans]{ccfonts}
+% ############################################
+% Packages global
+% ############################################
+\input{packages}
+% --------------------------------------------
+% Packages supplémentaires :
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[C]{}
+\fancyhead[R]{}
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+%\renewcommand{\headrulewidth}{}
+%\renewcommand{\footrulewidth}{}
+% Paramètres du document :
+\title{}
+%\subtitle{} % Seulement si classe KOMA-Script
+\date{\today}
+\author{Nicolas \textsc{Lesquoy}}
+% ############################################
+% Macros
+% ############################################
+\input{macros}
+% --------------------------------------------
+% Macros supplémentaires :
+% ############################################
+% ~~~~~~~~~~~~~~~~~DOCUMENT~~~~~~~~~~~~~~~~~~~
+% ############################################
+\begin{document}
+    % Début du document
+    \maketitle
+\end{document}
