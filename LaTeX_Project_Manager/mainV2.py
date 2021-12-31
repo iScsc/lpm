@@ -131,6 +131,19 @@ def remove_project(project_name):
     except:
         traceback.print_exc() # Pour récuperer les erreurs et les informations correspondantes
 
+def create_cheatsheet(project_name,images=True):
+    cd = main_folder_path # working directory où il faut importer les dossiers
+    path = cd + "\\{fdname}".format(fdname=project_name) # Path du nouveau projet à setup
+    new_entry(project_name,main_folder_path) # Ajout d'un élément à l'historique correspondant au nouveau projet
+    list_file = os.listdir(source_path) # Liste des fichiers se trouvant dans le dossier source
+    make_folder(cd,project_name)
+    for file in list_file:
+        if file.startswith('bristol') or file.startswith("mypackage"):
+            copytex(file,project_name)
+    os.startfile(path)
+
+
+
 ##################################################################
 # INITIALISATION D'UN NOUVEAU PROJET
 # historique(main_folder_path)
