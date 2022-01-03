@@ -2,7 +2,6 @@
 ##########################################################
 # PACKAGES
 ##########################################################
-
 import os # Pour la manipulation des dossiers
 import shutil # Pour la manipulation des fichiers
 from datetime import datetime # Pour la création de l'historique
@@ -151,11 +150,15 @@ def create_project(project_name,classe,images=True,pptx=False):
             print("Vous n'avez pas la permission de changer {0}".format(path))
         list_file = os.listdir(os.getcwd())
         # print(list_file) # Debug
-        if classe in ["book","standard","beam"]: # Pour fiche, pas besoin
+        if classe in ["book","standard"]: # Pour fiche, pas besoin
             # J'utilise ici mes conventions : elles sont prises en compte dans les fichiers .tex
             os.rename("glob_macros.tex","macros.tex")
             os.rename("glob_PackagesGlobStandard.tex","packages.tex")
             os.rename("standard_snippet_template.tex","main.tex")
+        if classe == "beam":
+            os.rename("glob_macros.tex","macros.tex")
+            os.rename("glob_PackagesGlobStandard.tex","packages.tex")
+            os.rename("beam_snippet_template_beamer.tex","main.tex")
         os.startfile(path) # Pour ouvrir quand il a été créé.
     else:
         print("Aucun dossier n'a été créé. Fin du programme.")
@@ -175,6 +178,6 @@ def remove_project(project_name):
 # INITIALISATION D'UN NOUVEAU PROJET
 # historique(main_folder_path)
 
-create_project("test11","book",images=True,pptx=True)
+create_project("Asso_SCSC_Pres","beam",images=False,pptx=False)
 #remove_project("test")
 
