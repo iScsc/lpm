@@ -178,6 +178,6 @@ def remove_project(project_name):
 # INITIALISATION D'UN NOUVEAU PROJET
 # historique(main_folder_path)
 
-create_project("Asso_SCSC_Pres","beam",images=False,pptx=False)
+create_project("test","standard",images=True,pptx=True)
 #remove_project("test")
 
