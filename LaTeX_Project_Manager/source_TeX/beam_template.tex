@@ -1,5 +1,6 @@
 \RequirePackage{currfile}
-\documentclass[notheorems]{beamer}
+\documentclass{beamer}
+% ajouter option 'notheorems' si utilisation ams
 % ############################################
 % Packages standards
 % ############################################
@@ -9,6 +10,8 @@
 % --------------------------------------------
 % Choix des fontes :
 %\usepackage{lmodern}
+\usepackage[babel=true,kerning=true]{microtype}
+\microtypesetup{expansion=false}
 \usepackage[boldsans]{ccfonts}
 % ############################################
 % Packages global
@@ -20,6 +23,17 @@
 % ############################################
 \input{macros}
 % Macros supplémentaires
+% \theoremstyle{plain}
+% \newtheorem{theorem}{Théorème}
+
+% \theoremstyle{definition}
+% \newtheorem{proposition}{Proposition}
+% \newtheorem{definition}{Définition}
+% \newtheorem{corollary}{Corollaire}
+
+% \theoremstyle{remark}
+% \newtheorem*{remark}{Remarque}
+% \newtheorem{lemma}{Lemme}
 % ############################################
 \title[]{}
 \subtitle{}
@@ -83,7 +97,7 @@
 \setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 \setbeamertemplate{caption}[numbered] % Pour la numérotation des figures
 \setbeamercovered{transparent}
-\setbeamertemplate{enumerate item}{\color{black}\fbox{{\normalfont\gothfamily P\insertenumlabel}}}
+%\setbeamertemplate{enumerate item}{\color{black}\fbox{{\normalfont\gothfamily P\insertenumlabel}}}
 % Pour utiliser une police à empattements partout
 %\usefonttheme{serif}
 \setbeamertemplate{frametitle continuation}{} % Supprimer la numérotation avec framebreak

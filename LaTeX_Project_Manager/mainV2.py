@@ -178,6 +178,5 @@ def remove_project(project_name):
 # INITIALISATION D'UN NOUVEAU PROJET
 # historique(main_folder_path)
 
-create_project("test","standard",images=True,pptx=True)
+create_project("PC_MecaFluChoc_1","standard",images=True,pptx=True)
 #remove_project("test")
-

@@ -20,6 +20,7 @@
 \RequirePackage{dsfont}
 \RequirePackage{stmaryrd}
 \RequirePackage[g]{esvect}
+\RequirePackage{esint}
 % COMMAND DECLARATION
 \begingroup
     \def\tmpa#1{%
@@ -59,6 +60,7 @@
 \DeclareMathOperator{\rot}{\vv{\mathrm{rot}}} % Rotationnel
 \DeclareMathOperator{\laplacien}{\nabla}
 \DeclareMathOperator{\laplacienv}{\overline{\nabla}}
+% DIVERS
 \def\restriction#1#2{\mathchoice
               {\setbox1\hbox{${\displaystyle #1}_{\scriptstyle #2}$}
               \restrictionaux{#1}{#2}}
@@ -72,4 +74,15 @@
 \def\suplim{\mathop{\overline{\lim}}}
 \def\inflim{\mathop{\underline{\lim}}}
 \def\ind{\mathds{1}}
+%% MACROS TEXT
+\newcounter{newquestion}
+\setcounter{newquestion}{1}
+\newcounter{newsubquestion}
+\setcounter{newsubquestion}{1}
+\newcommand{\myquestion}[2]{
+    \noindent\textbf{\thenewquestion.~-}~\textsl{#1}\newline{\color{red}#2}\newline
+    \stepcounter{newquestion}}
+\newcommand{\mysubquestion}[2]{
+    {\color{black}\textbf{\thenewquestion(\romannumeral\thenewsubquestion).~-}~#1}\newline{\color{red}#2}
+    \newline\stepcounter{newsubquestion}}
 % end of the file

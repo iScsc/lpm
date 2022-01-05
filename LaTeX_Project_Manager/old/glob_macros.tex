@@ -1,3 +1,4 @@
+%% DEPRECATED: complétement intégré dans 'mypackage.sty'.
 % ===========================================
 % Définition de macros complexes
 % ===========================================
@@ -70,5 +71,13 @@
 % ###########################################
 % MACROS TEXTE
 % ###########################################
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}} % Pour avoir des chiffres correctement entourés
-\newcommand{\todop}[1]{{\color{red}\texttt{\textbf{TO DO: #1}}}}
+\newcounter{newquestion}
+\setcounter{newquestion}{1}
+\newcounter{newsubquestion}
+\setcounter{newsubquestion}{1}
+\newcommand{\myquestion}[2]{
+    \noindent\textbf{\thenewquestion.~-}~\textsl{#1}\newline{\color{red}#2}\newline
+    \stepcounter{newquestion}}
+\newcommand{\mysubquestion}[2]{
+    {\color{black}\textbf{\thenewquestion(\romannumeral\thenewsubquestion).~-}~#1}\newline{\color{red}#2}
+    \newline\stepcounter{newsubquestion}}
