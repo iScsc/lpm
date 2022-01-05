@@ -158,6 +158,7 @@ def create_project(project_name,classe,images=True,pptx=False):
             os.rename("glob_packages.tex","packages.tex")
             os.rename("beam_template.tex","main.tex")
         os.startfile(path) # Pour ouvrir quand il a été créé.
+        os.system("subl " + path) # Pour lancer ST avec le dossier ouvert
     else:
         print("Aucun dossier n'a été créé. Fin du programme.")
 
@@ -176,5 +177,5 @@ def remove_project(project_name):
 # INITIALISATION D'UN NOUVEAU PROJET
 # historique(main_folder_path)
 
-create_project("test4","beam",images=False,pptx=False)
+create_project("test6","standard",images=False,pptx=False)
 #remove_project("test")
