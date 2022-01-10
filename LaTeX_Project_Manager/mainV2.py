@@ -103,7 +103,7 @@ def create_project(project_name,classe,images=True,pptx=False):
     if classe == "fiche":
         make_folder(cd,project_name)
         for file in list_file:
-            if file.startswith("bristol") or file.startswith("mypackage"):
+            if file.startswith("bristol") or file.startswith("my"):
                 copytex(file,project_name)
         if images:
             make_folder(path,"images")
@@ -112,7 +112,7 @@ def create_project(project_name,classe,images=True,pptx=False):
     elif classe == "standard": # C'est-à-dire 'article'
         make_folder(cd,project_name)
         for file in list_file:
-            if file.startswith("glob") or file.startswith("standard") or file.startswith("my"):
+            if file.startswith("glob") or file.startswith("standard") or file.startswith("mypackage"):
                 copytex(file,project_name)
         if images: # S'il faut créer un dossier contenant les images du projet
             make_folder(path,"images")
@@ -121,7 +121,7 @@ def create_project(project_name,classe,images=True,pptx=False):
     elif classe == "book": # C'est-à-dire un projet plus complet
         make_folder(cd,project_name)
         for file in list_file:
-            if file.startswith("glob") or file.startswith("standard") or file.startswith("my"):
+            if file.startswith("glob") or file.startswith("standard") or file.startswith("mypackage"):
                     copytex(file,project_name)
             if images:
                 make_folder(path,"images")
@@ -130,7 +130,7 @@ def create_project(project_name,classe,images=True,pptx=False):
     elif classe == "beam":
         make_folder(cd,project_name)
         for file in list_file:
-            if file.startswith("glob") or file.startswith("beam") or file.startswith("my"):
+            if file.startswith("glob") or file.startswith("beam") or file.startswith("mypackage"):
                 copytex(file,project_name)
         if images:
             make_folder(path,"images")
@@ -157,6 +157,8 @@ def create_project(project_name,classe,images=True,pptx=False):
         if classe == "beam":
             os.rename("glob_packages.tex","packages.tex")
             os.rename("beam_template.tex","main.tex")
+        if classe == "beam":
+            os.rename("myfiche_template.tex","main.tex")
         os.startfile(path) # Pour ouvrir quand il a été créé.
         os.system("subl " + path) # Pour lancer ST avec le dossier ouvert
     else:
@@ -177,5 +179,5 @@ def remove_project(project_name):
 # INITIALISATION D'UN NOUVEAU PROJET
 # historique(main_folder_path)
 
-create_project("test6","standard",images=False,pptx=False)
+create_project("Projet_club_Pres","standard",images=True,pptx=True)
 #remove_project("test")

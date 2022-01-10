@@ -1,0 +1,28 @@
+\documentclass[10pt]{bristol}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+%############################################
+% Autres packages :
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{easy-todo}
+\usepackage{fancyhdr}
+% Macros
+\usepackage{mypackage}
+% Nouvelles macros :
+%############################################
+\pagestyle{fancy}
+% % No HEADER
+\fancyhead[L]{} 
+\fancyhead[R]{}
+\fancyhead[C]{}
+\renewcommand\headrulewidth{0pt}
+\fancyfoot[L]{Fiche -- <Title>}
+\fancyfoot[R]{\adforn{64}\;\textbf{\thepage}}
+\fancyfoot[C]{} % Deletes centered page numbers
+\setlength{\fboxrule}{1pt}
+%############################################
+\begin{document}
+\myTitlepage{}{}{Nicolas LESQUOY}{\textsc{ISAE-Supaero}}{<color>!25!white}
+\end{document}
