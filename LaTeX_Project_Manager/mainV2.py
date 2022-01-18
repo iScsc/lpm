@@ -179,5 +179,5 @@ def remove_project(project_name):
 # INITIALISATION D'UN NOUVEAU PROJET
 # historique(main_folder_path)
 
-create_project("Projet_club_Pres","standard",images=True,pptx=True)
+create_project("Feuille_exos","standard",images=True,pptx=False)
 #remove_project("test")
