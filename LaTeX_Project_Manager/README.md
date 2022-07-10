@@ -9,3 +9,6 @@
 - ajouter un modèle avec `bristol.cls` + mettre en place le support de `easy-todo` dans les options avec option draft et final. 
 - aller chercher les tabes de chocs
 - mettre easy-todo à la place de todonotes
+
+## TODO
+Modifier les templates + nettoyer `mainV2.py`

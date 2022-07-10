@@ -179,5 +179,5 @@ def remove_project(project_name):
 # INITIALISATION D'UN NOUVEAU PROJET
 # historique(main_folder_path)
 
-create_project("Feuille_exos","standard",images=True,pptx=False)
+create_project("Fiche_MECAQ_VF","standard",images=True,pptx=True)
 #remove_project("test")
