@@ -18,14 +18,14 @@ def MakeFolder(WorkingDir,FolderName):
     except FileExistsError:
         print("Directory ",FolderName," already exists")
 
-def CopyTeX(WorkingDir,FileName,FolderName):
+def CopyTeX(WorkingDir,FileName,FolderName,PathToSource):
     """
     Fonction permettant de copier des fichiers d'un répertoire à un autre
-    WorkingDir --> 
+    WorkingDir --> str ; dossier principal
     FileName --> str ; nom du fichier à copier
     FolderName --> str ; nom du dossier dans lequel envoyer le fichier
     """
-    original = os.path.join(SettingsClass.PathToSource,FileName)
+    original = os.path.join(PathToSource,FileName)
     target = os.path.join(WorkingDir,FolderName,FileName)
     shutil.copyfile(original, target)
 
