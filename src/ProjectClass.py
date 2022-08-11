@@ -2,8 +2,8 @@
 import os # Pour la manipulation des dossiers
 import shutil # Pour la manipulation des fichiers
 import traceback # Pour la gestion des erreurs
-import Settings
-import Interact
+import SettingsClass
+import InteractClass
 
 class Project:
     def __init__(self,ProjectName,WorkingDir,LaTeXClass):
@@ -12,15 +12,15 @@ class Project:
         self.LaTeXClass = LaTeXClass
     
     def CheckClass(self):
-        if self.LaTeXClass not in Settings.ClassList:
+        if self.LaTeXClass not in SettingsClass.ClassList:
             raise("Ceci n'est pas une classe supportée")
     
     def CreateProject(self,images=True,pptx=False):
-        Interact.MakeFolder(self.WorkingDir,self.ProjectName)
-        ListFile = os.listdir(Settings.PathToSource)
+        InteractClass.MakeFolder(self.WorkingDir,self.ProjectName)
+        ListFile = os.listdir(SettingsClass.PathToSource)
         Project.CheckClass(self)
         # utiliser la fonction pour checker si packages.sty ou bristol sont utilisés,
-    
+
     def RemoveProject(self):
         pass
     

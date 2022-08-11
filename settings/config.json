@@ -1,0 +1,24 @@
+{
+    "PathToSource": "/home/nlesquoy/ghq/LaTeX-Project-Manager/source_TeX",
+    "PathToWorkingDir": "/home/nlesquoy/ghq/LaTeX-Project-Manager/test",
+    "latex_class": [
+        {
+            "name": "beamer",
+            "dependencies": [
+                "mypackage.sty","packages.tex","beamer.tex"
+            ]
+        },
+        {
+            "name": "standard",
+            "dependencies": [
+                "mypackage.sty","packages.tex","standard.tex"
+            ]
+        },
+        {
+            "name": "fiche",
+            "dependencies": [
+                "mypackage.sty","bristol.cls","fiche.tex"
+            ]
+        }
+    ]
+}
