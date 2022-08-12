@@ -1,5 +1,7 @@
 # Settings.py - global variables
 import json
+import InteractFunc
+import os
 
 class Settings:
     def __init__(self,PathToJSON):
@@ -25,6 +27,22 @@ class Settings:
         SettingsDict = Settings.GetSettings(self)
         ClassList = [SettingsDict["latex_class"][i]["name"] for i in range(len(SettingsDict["latex_class"]))]
         return SettingsDict["latex_class"][ClassList.index(ClassName)]["dependencies"]
+    
+    def CheckDep(self,ClassName):
+        "Check Class dependencies"
+        SettingsDict = Settings.GetSettings(self)
+        ClassList = [SettingsDict["latex_class"][i]["name"] for i in range(len(SettingsDict["latex_class"]))]
+        DepList = SettingsDict["latex_class"][ClassList.index(ClassName)]["dependencies"]
+        ClassFile = "".join([ClassName,".tex"])
+        Path = os.path.join(Settings.GetPathToSource(self),ClassFile)
+        for dep in DepList:
+            if dep != ClassFile:
+                FileName,FileExtension = dep.split('.')
+                Result = InteractFunc.SearchTeX(FileName.removesuffix(FileExtension),Path)
+                if not Result:
+                    return False
+        return True
 
-# test = Settings(r"/home/nlesquoy/ghq/LaTeX-Project-Manager/settings/config.json")
-# print(Settings.GetClassDep(test,"standard"))
+SettingsLaunch = Settings(r"/home/nlesquoy/ghq/LaTeX-Project-Manager/settings/config.json")
+
+# print(InteractFunc.SearchTeX("packages.tex".removesuffix(".tex"),r"/home/nlesquoy/ghq/LaTeX-Project-Manager/source_TeX/standard.tex"))
