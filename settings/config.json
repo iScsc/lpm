@@ -1,6 +1,5 @@
 {
     "PathToSource":"/home/nlesquoy/ghq/LaTeX-Project-Manager/source_TeX",
-    "PathToWorkingDir":"/home/nlesquoy/ghq/LaTeX-Project-Manager/test",
     "latex_class":[
         {
             "name":"beamer",
