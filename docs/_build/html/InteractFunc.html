@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InteractFunc module &mdash; LaTeX-Project-Manager 1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LaTeX-Project-Manager
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">InteractFunc module</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LaTeX-Project-Manager</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>InteractFunc module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/InteractFunc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-InteractFunc">
+<span id="interactfunc-module"></span><h1>InteractFunc module<a class="headerlink" href="#module-InteractFunc" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.AddElementToHistory">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">AddElementToHistory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PathToWorkingDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProjectName</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/InteractFunc.html#AddElementToHistory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.AddElementToHistory" title="Permalink to this definition"></a></dt>
+<dd><p>Add a line to the <cite>history.txt</cite> file when creating a new file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>PathToWorkingDir</strong> (<em>str</em>) – Path to the main directory where the history file is located.</p></li>
+<li><p><strong>ProjectName</strong> (<em>str</em>) – Name of the project that will be created</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the line could be added, false if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.CopyTeX">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">CopyTeX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">WorkingDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FolderName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PathToSource</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InteractFunc.html#CopyTeX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.CopyTeX" title="Permalink to this definition"></a></dt>
+<dd><p>Copies a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>WorkingDir</strong> (<em>str</em>) – Target directory</p></li>
+<li><p><strong>FileName</strong> (<em>str</em>) – the file name (with extension) that needs to be copied</p></li>
+<li><p><strong>FolderName</strong> (<em>str</em>) – Target folder (inside <a href="#id1"><span class="problematic" id="id2">:param:`WorkingDir`</span></a>)</p></li>
+<li><p><strong>PathToSource</strong> (<em>str</em>) – Path to LaTeX source files</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.CreateHistory">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">CreateHistory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PathToWorkingDir</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/InteractFunc.html#CreateHistory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.CreateHistory" title="Permalink to this definition"></a></dt>
+<dd><p>Initializes the <cite>history.txt</cite> file in a new directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>PathToWorkingDir</strong> (<em>str</em>) – Path to the target directory.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the file was created, false if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.CreateLocalSettings">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">CreateLocalSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PathToWorkingDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProjectName</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InteractFunc.html#CreateLocalSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.CreateLocalSettings" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a <cite>local_settings.json</cite> file - This feature has no use for now.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>PathToWorkingDir</strong> (<em>str</em>) – Path to the main directory</p></li>
+<li><p><strong>ProjectName</strong> (<em>str</em>) – Name of the project where the file should be located</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the file could be created, false if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.MakeChangeToJSON">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">MakeChangeToJSON</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PathToFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TargetField</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InteractFunc.html#MakeChangeToJSON"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.MakeChangeToJSON" title="Permalink to this definition"></a></dt>
+<dd><p>Makes changes to a simple field in a JSON file. The file
+must already exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>PathToFile</strong> (<em>str</em>) – Path to the target file.</p></li>
+<li><p><strong>TargetField</strong> (<em>str</em>) – The field that will be modified.</p></li>
+<li><p><strong>elem</strong> (<em>str</em>) – The element that will modify the <cite>TargetField</cite> JSON field.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.MakeFolder">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">MakeFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">WorkingDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FolderName</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InteractFunc.html#MakeFolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.MakeFolder" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a folder in the specified directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>WorkingDir</strong> (<em>str</em>) – The target directory where the new folder should be created</p></li>
+<li><p><strong>FolderName</strong> (<em>str</em>) – Name of the new folder</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.RegisterDeletion">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">RegisterDeletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PathToWorkingDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProjectName</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/InteractFunc.html#RegisterDeletion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.RegisterDeletion" title="Permalink to this definition"></a></dt>
+<dd><p>Takes note of the deletion of a project in <cite>history.txt</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>PathToWorkingDir</strong> (<em>str</em>) – Path to the main directory where the history file is located.</p></li>
+<li><p><strong>ProjectName</strong> (<em>str</em>) – Name of the project that will be deleted</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the line could be added, false if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.SearchTeX">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">SearchTeX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SearchWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FileName</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/InteractFunc.html#SearchTeX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.SearchTeX" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if a word is inside a text file or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>SearchWord</strong> (<em>str</em>) – The target word</p></li>
+<li><p><strong>FileName</strong> (<em>str</em>) – Path to the file where the word should be.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the word is in the file, false if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="InteractFunc.WriteToJSON">
+<span class="sig-prename descclassname"><span class="pre">InteractFunc.</span></span><span class="sig-name descname"><span class="pre">WriteToJSON</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PathToFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InteractFunc.html#WriteToJSON"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InteractFunc.WriteToJSON" title="Permalink to this definition"></a></dt>
+<dd><p>Add a new element to a JSON file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>PathToFile</strong> (<em>str</em>) – Path to the JSON file</p></li>
+<li><p><strong>elem</strong> (<em>dict</em>) – Complex element that needs to be added.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Nicolas LESQUOY.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
