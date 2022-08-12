@@ -3,4 +3,4 @@
 
 ## Current state :
 ---
-**Not working ATM**
+Currently working -> See doc. `README.md` will be redacted later
