@@ -6,24 +6,31 @@ import art
 import time
 
 def MakeFolder(WorkingDir,FolderName):
-    """
-    Fonction permettant de créer des dossiers dans un répertoire donné.
-    WorkingDir --> str ; working directory utilisé pour stocker les fichiers
-    FolderName --> str ; nom du dossier à créer
+    """Creates a folder in the specified directory.
+
+    :param WorkingDir: The target directory where the new folder should be created
+    :type WorkingDir: str
+    :param FolderName: Name of the new folder
+    :type FolderName: str
     """
     FolderPath = os.path.join(WorkingDir,FolderName)
     try:
         os.makedirs(FolderPath)    
-        print("Directory ",FolderName," Created ")
+        print("Directory ",FolderName," created.")
     except FileExistsError:
-        print("Directory ",FolderName," already exists")
+        print("Directory ",FolderName," already exists.")
 
 def CopyTeX(WorkingDir,FileName,FolderName,PathToSource):
-    """
-    Fonction permettant de copier des fichiers d'un répertoire à un autre
-    WorkingDir --> str ; dossier principal
-    FileName --> str ; nom du fichier à copier
-    FolderName --> str ; nom du dossier dans lequel envoyer le fichier
+    """Copies a file.
+
+    :param WorkingDir: Target directory
+    :type WorkingDir: str
+    :param FileName: the file name (with extension) that needs to be copied
+    :type FileName: str
+    :param FolderName: Target folder (inside :param:`WorkingDir`)
+    :type FolderName: str
+    :param PathToSource: Path to LaTeX source files
+    :type PathToSource: str
     """
     original = os.path.join(PathToSource,FileName)
     target = os.path.join(WorkingDir,FolderName,FileName)
@@ -50,7 +57,16 @@ def CopyTeX(WorkingDir,FileName,FolderName,PathToSource):
 #         print("Something happened when creating the folder")
 #     # On sauvegarde le document dans le folder 'images'.
 
-def SearchTeX(SearchWord,FileName):
+def SearchTeX(SearchWord,FileName)->bool:
+    """Checks if a word is inside a text file or not.
+
+    :param SearchWord: The target word
+    :type SearchWord: str
+    :param FileName: Path to the file where the word should be.
+    :type FileName: str
+    :return: True if the word is in the file, false if not.
+    :rtype: bool
+    """
     with open(FileName, 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
         if s.find(bytes(SearchWord,encoding='utf-8')) != -1:
             file.close()
@@ -60,8 +76,12 @@ def SearchTeX(SearchWord,FileName):
             return False
 
 def WriteToJSON(PathToFile,elem):
-    """
-    Append a new element to JSON file
+    """Add a new element to a JSON file
+
+    :param PathToFile: Path to the JSON file
+    :type PathToFile: str
+    :param elem: Complex element that needs to be added.
+    :type elem: dict
     """
     if isinstance(elem,dict):
         with open(PathToFile,"r") as ReadFile:
@@ -74,8 +94,15 @@ def WriteToJSON(PathToFile,elem):
         raise("{0} is not of type <dict>".format(str(elem)))
 
 def MakeChangeToJSON(PathToFile,TargetField,elem):
-    """
-    Changes already existing field - for simple input with no dict as value
+    """Makes changes to a simple field in a JSON file. The file
+    must already exist.
+
+    :param PathToFile: Path to the target file.
+    :type PathToFile: str
+    :param TargetField: The field that will be modified.
+    :type TargetField: str
+    :param elem: The element that will modify the `TargetField` JSON field.
+    :type elem: str
     """
     with open(PathToFile,"r") as ReadFile:
         SettingsDict = json.load(ReadFile)
@@ -86,8 +113,14 @@ def MakeChangeToJSON(PathToFile,TargetField,elem):
         with open(PathToFile,"w") as WriteFile:
             json.dump(SettingsDict,WriteFile,indent=4,separators=(',',':'))
 
-def CreateHistory(PathToWorkingDir):
-    """Create in main repo"""
+def CreateHistory(PathToWorkingDir)->bool:
+    """Initializes the `history.txt` file in a new directory.
+
+    :param PathToWorkingDir: Path to the target directory.
+    :type PathToWorkingDir: str
+    :return: True if the file was created, false if not.
+    :rtype: bool
+    """
     PathToHistory = os.path.join(PathToWorkingDir,"history.txt")
     if not os.path.exists(PathToHistory):
         with open(PathToHistory,'w') as History:
@@ -101,8 +134,16 @@ def CreateHistory(PathToWorkingDir):
     else:
         return False
 
-def AddElementToHistory(PathToWorkingDir,ProjectName):
-    """Add line to history"""
+def AddElementToHistory(PathToWorkingDir,ProjectName)->bool:
+    """Add a line to the `history.txt` file when creating a new file.
+
+    :param PathToWorkingDir: Path to the main directory where the history file is located.
+    :type PathToWorkingDir: str
+    :param ProjectName: Name of the project that will be created
+    :type ProjectName: str
+    :return: True if the line could be added, false if not.
+    :rtype: bool
+    """
     PathToHistory = os.path.join(PathToWorkingDir,"history.txt")
     if os.path.exists(PathToHistory):
         with open(PathToHistory,'a') as History:
@@ -112,9 +153,15 @@ def AddElementToHistory(PathToWorkingDir,ProjectName):
     else:
         return False
 
-def RegisterDeletion(PathToWorkingDir,ProjectName):
-    """
-    Register deletion of project in history
+def RegisterDeletion(PathToWorkingDir,ProjectName)->bool:
+    """Takes note of the deletion of a project in `history.txt`.
+
+    :param PathToWorkingDir: Path to the main directory where the history file is located.
+    :type PathToWorkingDir: str
+    :param ProjectName: Name of the project that will be deleted
+    :type ProjectName: str
+    :return: True if the line could be added, false if not.
+    :rtype: bool
     """
     PathToHistory = os.path.join(PathToWorkingDir,"history.txt")
     if os.path.exists(PathToHistory):    
@@ -127,8 +174,14 @@ def RegisterDeletion(PathToWorkingDir,ProjectName):
         
 
 def CreateLocalSettings(PathToWorkingDir,ProjectName):
-    """
-    create local settings file
+    """Creates a `local_settings.json` file - This feature has no use for now.
+
+    :param PathToWorkingDir: Path to the main directory
+    :type PathToWorkingDir: str
+    :param ProjectName: Name of the project where the file should be located
+    :type ProjectName: str
+    :return: True if the file could be created, false if not.
+    :rtype: bool
     """
     PathToProjectDir = os.path.join(PathToWorkingDir,ProjectName)
     try:
@@ -138,8 +191,3 @@ def CreateLocalSettings(PathToWorkingDir,ProjectName):
         return True
     except:
         return False
-    
-
-
-# CreateHistory(r"/home/nlesquoy/ghq/LaTeX-Project-Manager/test")
-# AddElementToHistory(r"/home/nlesquoy/ghq/LaTeX-Project-Manager/test","Test")
