@@ -1,10 +1,9 @@
 import os
-import shutil # Pour la manipulation des fichiers
+import shutil
 import mmap
 import json
 import art
 import time
-# from pptx import Presentation # Pour la création du .pptx
 
 def MakeFolder(WorkingDir,FolderName):
     """

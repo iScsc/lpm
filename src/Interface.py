@@ -1,6 +1,5 @@
+# -*- coding: utf-8 -*-
 import ProjectClass
-import InteractFunc
-import SettingsClass
 import pathlib
 
 while True:

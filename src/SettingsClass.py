@@ -44,5 +44,3 @@ class Settings:
         return True
 
 SettingsLaunch = Settings(r"/home/nlesquoy/ghq/LaTeX-Project-Manager/settings/config.json")
-
-# print(InteractFunc.SearchTeX("packages.tex".removesuffix(".tex"),r"/home/nlesquoy/ghq/LaTeX-Project-Manager/source_TeX/standard.tex"))

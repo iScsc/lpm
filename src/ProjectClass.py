@@ -1,64 +1,103 @@
 # -*- coding: utf-8 -*-
-import os # Pour la manipulation des dossiers
-import shutil # Pour la manipulation des fichiers
-import traceback # Pour la gestion des erreurs
+import os
+import shutil
+import traceback
 import SettingsClass
 import InteractFunc
 
 class Project:
+    """This a class to define the properties of a LaTeX project.
+    It relies on functions defined in :class:`SettingsClass.Settings`
+    and :file:`InteractFunc.py`.
+
+    :param ProjectName: Name of the project that will be treated.
+    :type ProjectName: str
+    :param WorkingDir: Path to the folder where the project is located or where
+    it will be created
+    :type WorkingDir: str
+    :param LaTeXClass: Class associated with the `main` file of the project. It must be
+    a supported class (ie detailled in `settings.json`), checks are done to verify that.
+    :type LaTeXClass: str
+    """
     SettingsInit = SettingsClass.SettingsLaunch
     ClassList = SettingsClass.Settings.GetClassList(SettingsInit)
     PathToSource = SettingsClass.Settings.GetPathToSource(SettingsInit)
 
     def __init__(self,ProjectName,WorkingDir,LaTeXClass):
+        """Constructor method.
+        """
         self.ProjectName = ProjectName
         self.WorkingDir = WorkingDir
         self.LaTeXClass = LaTeXClass
     
-    def CheckClass(self):
+    def CheckClass(self)->bool:
+        """Check if `LaTeXClass` is a supported LaTeX document class.
+
+        :return: True if it is a supported class, false if not.
+        :rtype: bool
+        """
         if self.LaTeXClass not in Project.ClassList:
             return False
         else:
             return True
     
-    def CheckInit(self):
-        """Check if the project can be initialized + make folder"""
+    def CheckInit(self)->bool:
+        """Check if the project can be initialized in the folder specified in
+        :class:`Project.WorkingDir` and if the LaTeX dependencies detailled in
+        `settings.json` are correct by searching in the main TeX file for
+        correct include statements.
+
+        :return: True if the project can be safely initialized, False if not.
+        :rtype: bool
+        """
         InteractFunc.MakeFolder(self.WorkingDir,self.ProjectName)
         return os.access(Project.PathToSource,os.W_OK | os.X_OK) and Project.CheckClass(self) and \
         SettingsClass.Settings.CheckDep(Project.SettingsInit,self.LaTeXClass)
 
     def CreateProject(self,images=True,pptx=False):
+        """Create of project according to the information given in
+        :class:`ProjectClass.Project`.
+
+        :param images: Create an `images` folder, defaults to True
+        :type images: bool, optional
+        :param pptx: Create a `.pptx` file inside the `images` folder to create figures
+        - currently not implemented, defaults to False
+        :type pptx: bool, optional
+        """
         if Project.CheckInit(self):
         # utiliser la fonction pour checker si packages.sty ou bristol sont utilisés,
             DepList = SettingsClass.Settings.GetClassDep(Project.SettingsInit,self.LaTeXClass)
             for dep in DepList:
-                InteractFunc.CopyTeX(self.WorkingDir,dep,self.ProjectName,Project.PathToSource)
+                InteractFunc.CopyTeX(self.WorkingDir,dep,self.ProjectName,Project.PathToSource) # Copy required TeX files
             if images:
-                InteractFunc.MakeFolder(os.path.join(self.WorkingDir,self.ProjectName),"images")
+                InteractFunc.MakeFolder(os.path.join(self.WorkingDir,self.ProjectName),"images") # Create `images` folder
             Path = os.path.join(self.WorkingDir,self.ProjectName)
             try:
                 os.chdir(Path)
             except FileNotFoundError:
-                print("Le dossier {0} n'existe pas.".format(Path))
+                raise("The folder {0} does not exist.".format(Path))
             except NotADirectoryError:
-                print("{0} n'est pas un dossier.".format(Path))
+                raise("{0} is not a folder.".format(Path))
             except PermissionError:
-                print("Vous n'avez pas la permission de changer {0}".format(Path))
+                raise("You do not have permission to modify {0}".format(Path))
             except:
-                print("Something went wrong")
-            if self.CheckClass == "standard":
+                print("Something went wrong.")
+                traceback.print_exc()
+            if self.LaTeXClass == "standard":
                 os.rename("standard.tex","main.tex")
-            if self.CheckClass == "beamer":
+            if self.LaTeXClass == "beamer":
                 os.rename("beamer.tex","main.tex")
+            # Initialize local history file
             InteractFunc.CreateHistory(self.WorkingDir)
+            # Add line corresponding to the newly created project in `history.txt`
             InteractFunc.AddElementToHistory(self.WorkingDir,self.ProjectName)
+            # Create a `local_settings.json` file. This feature is not used for now.
             InteractFunc.CreateLocalSettings(self.WorkingDir,self.ProjectName)
         else:
-            raise("No project was generated.")
+            raise("No project was generated. Please retry.")
         
     def RemoveProject(self):
-        """
-        Delete project from folder
+        """Delete a specified Project. This function is likely to be moved to :file:`InteractFunc.py`
         """
         InteractFunc.RegisterDeletion(self.WorkingDir,self.ProjectName)
         DelPath = os.path.join(self.WorkingDir,self.ProjectName)
@@ -66,9 +105,3 @@ class Project:
             shutil.rmtree(DelPath)
         except:
             traceback.print_exc()
-    
-
-# NewProject = Project("Test 1","/home/nlesquoy/ghq/LaTeX-Project-Manager/test","standard")
-# # Project.RemoveProject(NewProject)
-# # print(Project.CheckInit(NewProject))
-# Project.CreateProject(NewProject,True,False)
