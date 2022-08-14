@@ -1,5 +1,5 @@
 {
-    "PathToSource":"/home/nlesquoy/ghq/LaTeX-Project-Manager/source_TeX",
+    "PathToSource":"/home/nlesquoy/ghq/github.com/LaTeX-Project-Manager/source_TeX",
     "latex_class":[
         {
             "name":"beamer",

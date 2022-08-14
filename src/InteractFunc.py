@@ -91,7 +91,7 @@ def WriteToJSON(PathToFile,elem):
             json.dump(SettingsDict,WriteFile,indent=4,separators=(',',':'))
             WriteFile.close()
     else:
-        raise("{0} is not of type <dict>".format(str(elem)))
+        print("{0} is not of type <dict>".format(str(elem)))
 
 def MakeChangeToJSON(PathToFile,TargetField,elem):
     """Makes changes to a simple field in a JSON file. The file
@@ -107,7 +107,7 @@ def MakeChangeToJSON(PathToFile,TargetField,elem):
     with open(PathToFile,"r") as ReadFile:
         SettingsDict = json.load(ReadFile)
     if TargetField not in SettingsDict:
-        raise("{0} is not a valid field.".format(TargetField))
+        print("{0} is not a valid field.".format(TargetField))
     else:
         SettingsDict[TargetField] = elem
         with open(PathToFile,"w") as WriteFile:

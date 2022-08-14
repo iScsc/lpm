@@ -2,6 +2,7 @@
 import os
 import shutil
 import traceback
+import Interface
 import SettingsClass
 import InteractFunc
 
@@ -19,7 +20,7 @@ class Project:
     a supported class (ie detailled in `settings.json`), checks are done to verify that.
     :type LaTeXClass: str
     """
-    SettingsInit = SettingsClass.SettingsLaunch
+    SettingsInit = Interface.SettingsLaunch
     ClassList = SettingsClass.Settings.GetClassList(SettingsInit)
     PathToSource = SettingsClass.Settings.GetPathToSource(SettingsInit)
 
@@ -75,11 +76,11 @@ class Project:
             try:
                 os.chdir(Path)
             except FileNotFoundError:
-                raise("The folder {0} does not exist.".format(Path))
+                print("The folder {0} does not exist.".format(Path))
             except NotADirectoryError:
-                raise("{0} is not a folder.".format(Path))
+                print("{0} is not a folder.".format(Path))
             except PermissionError:
-                raise("You do not have permission to modify {0}".format(Path))
+                print("You do not have permission to modify {0}".format(Path))
             except:
                 print("Something went wrong.")
                 traceback.print_exc()
@@ -94,7 +95,7 @@ class Project:
             # Create a `local_settings.json` file. This feature is not used for now.
             InteractFunc.CreateLocalSettings(self.WorkingDir,self.ProjectName)
         else:
-            raise("No project was generated. Please retry.")
+            print("No project was generated. Please retry.")
         
     def RemoveProject(self):
         """Delete a specified Project. This function is likely to be moved to :file:`InteractFunc.py`

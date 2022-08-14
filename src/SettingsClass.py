@@ -74,5 +74,3 @@ class Settings:
                 if not Result:
                     return False
         return True
-
-SettingsLaunch = Settings(r"/home/nlesquoy/ghq/LaTeX-Project-Manager/settings/config.json") # Initialize settings -> TODO: move this to the project + create a function
