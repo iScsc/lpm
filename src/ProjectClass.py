@@ -2,7 +2,6 @@
 import os
 import shutil
 import traceback
-import Interface
 import SettingsClass
 import InteractFunc
 
@@ -20,7 +19,11 @@ class Project:
     a supported class (ie detailled in `settings.json`), checks are done to verify that.
     :type LaTeXClass: str
     """
-    SettingsInit = Interface.SettingsLaunch
+    with open("app.cfg","r") as config:
+        data = config.readlines()
+        config.close()
+    
+    SettingsInit = SettingsClass.Settings(data[0])
     ClassList = SettingsClass.Settings.GetClassList(SettingsInit)
     PathToSource = SettingsClass.Settings.GetPathToSource(SettingsInit)
 
