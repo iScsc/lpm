@@ -193,6 +193,6 @@ def CreateLocalSettings(PathToWorkingDir,ProjectName):
     except:
         return False
     
-def SaveProgress(PathToWorkingDir):
-    subprocess.run(['git add .'])
-    subprocess.run
+def SaveProgress(Message):
+    command = "git add . ; git commit -m {0} ; git push".format(Message)
+    subprocess.run(command,shell=True)

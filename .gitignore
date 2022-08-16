@@ -163,3 +163,9 @@ cython_debug/
 *.tex
 *.sty
 *.cls
+
+# Special folder for this repo -> will be removed sooner or later
+source_TeX/
+old/
+docs/
+test/

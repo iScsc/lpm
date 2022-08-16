@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
+import sys
+import os
 import ProjectClass
 import SettingsClass
 import SortFunc
+import InteractFunc
 import pathlib
 from rich.prompt import Prompt
 from rich.prompt import Confirm
+from rich.markdown import Markdown
 import rich
 import art
 
@@ -24,7 +28,7 @@ with open("app.cfg","r",newline='') as config:
 SettingsLaunch = SettingsClass.Settings(PathToConfig) # Initialize settings -> TODO: create a function to find this file automatically
 
 rich.print("[bold magenta]{0}[/bold magenta]".format(art.text2art("> LPM <")))
-action = Prompt.ask("What should I do ?", choices=["create","delete","inspect","configure","sort","quit"], default="create")
+action = Prompt.ask("What should I do ?", choices=["create","delete","inspect","configure","sort","save","name","quit"], default="create")
 if action == "create":
     PathToDir = Prompt.ask("Where should I create the new project ?",default=DefaultPath)
     path = pathlib.Path(PathToDir)
@@ -80,9 +84,19 @@ elif action == "configure":
             rich.print("[italic blue]I have nothing to do ![/italic blue]")
     except:
         rich.print("[bold red]>>> Something went wrong <<<[/bold red]")
+elif action == "name":
+    MarkDown = Prompt.ask("Which file do you want to see ?",choices=["commit.md","convention.md","../README.md"])
+    with open(MarkDown,"r+") as file:
+        rich.print(Markdown(file.read()))
+    sys.exit(0)
 elif action == "sort":
     SortTarget = Prompt.ask("Which directory do you want to clean up ?",default=DefaultPath)
     SortFunc.SortFiles(SortTarget,PathToConfig)
+elif action == "save":
+    dir = Prompt.ask("Where is the folder that you want to save ?",default=DefaultPath)
+    os.chdir(dir)
+    message = Prompt.ask("What is the message that should be used for the commit ?")
+    InteractFunc.SaveProgress(message)
 elif action == "quit":
     rich.print("[bold blue]Bye Bye !")
 else:
