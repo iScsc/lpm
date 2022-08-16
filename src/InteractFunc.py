@@ -1,5 +1,6 @@
 import os
 import shutil
+import subprocess
 import mmap
 import json
 import art
@@ -191,3 +192,7 @@ def CreateLocalSettings(PathToWorkingDir,ProjectName):
         return True
     except:
         return False
+    
+def SaveProgress(PathToWorkingDir):
+    subprocess.run(['git add .'])
+    subprocess.run

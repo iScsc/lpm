@@ -20,16 +20,6 @@ def GetAllFolders(PathToJSON:str)->list:
         ReadFile.close()
     return SettingsDict["ListOfFolders"]
 
-def CheckConvention(PathToFolder:str,PathToJSON:str)->bool:
-    FileList = GetAllFiles(PathToFolder)
-    FlagList = [True for i in range(len(FileList))]
-    Convention = GetAllFolders(PathToJSON)
-    for file in FileList:
-        for folder in Convention:
-            if file.startswith(folder):
-                FlagList[FileList.index(file)] = False
-                break
-    return False in FlagList
 
 def GetExclude(PathToJSON:str)->list:
     with open(PathToJSON,"r") as ReadFile:
@@ -37,25 +27,28 @@ def GetExclude(PathToJSON:str)->list:
         ReadFile.close()
     return SettingsDict["Exclude"]
 
+def CheckConvention(PathToFolder:str,PathToJSON:str)->bool:
+    FileList = GetAllFiles(PathToFolder)
+    FlagList = [True for i in range(len(FileList))]
+    ExcludeList = GetExclude(PathToJSON)
+    Convention = GetAllFolders(PathToJSON)
+    for file in FileList:
+        for folder in Convention:
+            if file.startswith(folder) and file not in ExcludeList:
+                FlagList[FileList.index(file)] = False
+                break
+    return False in FlagList
+
 def SortFiles(PathToFolder:str,PathToJSON:str)->Any:
     if CheckConvention(PathToFolder,PathToJSON):
         FileList = GetAllFiles(PathToFolder)
         TargetFolder = GetAllFolders(PathToJSON)
         ExcludeList = GetExclude(PathToJSON)
         for file in FileList:
-            if file not in ExcludeList:
-                for folder in TargetFolder:
-                    if file.startswith(folder):
-                        shutil.move(os.path.join(PathToFolder,file),os.path.join(PathToFolder,folder,file))
-                        break
-                    else:
-                        shutil.move(os.path.join(PathToFolder,file),os.path.join(PathToFolder,"TEMP",file))
-                        break
+            for folder in TargetFolder:
+                if file.startswith(folder) and file not in ExcludeList:
+                    shutil.move(os.path.join(PathToFolder,file),os.path.join(PathToFolder,folder,file))
+                    break
     else:
-        print("Check file name.")
-
-path_to_test = r"/home/nlesquoy/ghq/github.com/LaTeX-Project-Manager/test"
-path_to_json = r"/home/nlesquoy/ghq/github.com/LaTeX-Project-Manager/settings/config.json"
-# InitFolder(path_to_test,GetAllFolders(path_to_json))
-# print(CheckConvention(path_to_test,path_to_json))
-SortFiles(path_to_test,path_to_json)
+        print("Something went wrong when sorting the files.")
+        

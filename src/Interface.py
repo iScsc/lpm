@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import ProjectClass
 import SettingsClass
+import SortFunc
 import pathlib
 from rich.prompt import Prompt
 from rich.prompt import Confirm
@@ -13,19 +14,19 @@ def SettingsInit(PathToJSON):
     return SettingsClass.Settings(PathToJSON)
 
 # Parameters :
-# default_path = r"/home/nlesquoy/ghq/github.com/LaTeX-Project-Manager/test"
+# DefaultPath = r"/home/nlesquoy/ghq/github.com/LaTeX-Project-Manager/test"
 with open("app.cfg","r",newline='') as config:
     data = config.readlines()
     PathToConfig = data[0].rstrip("\n")
-    default_path = data[1]
+    DefaultPath = data[1]
     config.close()
 
 SettingsLaunch = SettingsClass.Settings(PathToConfig) # Initialize settings -> TODO: create a function to find this file automatically
 
 rich.print("[bold magenta]{0}[/bold magenta]".format(art.text2art("> LPM <")))
-action = Prompt.ask("What should I do ?", choices=["create","delete","inspect","configure","quit"], default="create")
+action = Prompt.ask("What should I do ?", choices=["create","delete","inspect","configure","sort","quit"], default="create")
 if action == "create":
-    PathToDir = Prompt.ask("Where should I create the new project ?",default=default_path)
+    PathToDir = Prompt.ask("Where should I create the new project ?",default=DefaultPath)
     path = pathlib.Path(PathToDir)
     if isinstance(path,pathlib.PurePath):
         ProjectName = Prompt.ask("How should I name it ?",default="test")
@@ -38,7 +39,7 @@ if action == "create":
         else:
             rich.print("[bold red]>>> Emergency stop - Nothing was generated ! <<<[/bold red]")
 elif action == "delete":
-    PathToDir = Prompt.ask("Where is the target ?",default=default_path)
+    PathToDir = Prompt.ask("Where is the target ?",default=DefaultPath)
     ProjectName = Prompt.ask("What's its name ?",default="test")
     execute = Confirm.ask("Do you really want to delete this project ?",default=False)
     if execute:
@@ -60,7 +61,7 @@ elif action == "configure":
         with open("app.cfg","r",newline='') as config:
             data = config.readlines()
             PathToConfig = data[0].rstrip("\n")
-            default_path = data[1]
+            DefaultPath = data[1]
             config.close()
         configure = Prompt.ask("What do you want to do ?",choices=["path/to/settings","path/to/default/folder"])
         if configure == "path/to/settings":
@@ -79,6 +80,9 @@ elif action == "configure":
             rich.print("[italic blue]I have nothing to do ![/italic blue]")
     except:
         rich.print("[bold red]>>> Something went wrong <<<[/bold red]")
+elif action == "sort":
+    SortTarget = Prompt.ask("Which directory do you want to clean up ?",default=DefaultPath)
+    SortFunc.SortFiles(SortTarget,PathToConfig)
 elif action == "quit":
     rich.print("[bold blue]Bye Bye !")
 else:
