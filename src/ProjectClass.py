@@ -23,7 +23,7 @@ class Project:
         data = config.readlines()
         config.close()
     
-    SettingsInit = SettingsClass.Settings(data[0])
+    SettingsInit = SettingsClass.Settings(data[0].rstrip("\n"))
     ClassList = SettingsClass.Settings.GetClassList(SettingsInit)
     PathToSource = SettingsClass.Settings.GetPathToSource(SettingsInit)
 

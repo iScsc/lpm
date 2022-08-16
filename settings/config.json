@@ -26,5 +26,11 @@
             ]
         }
     ],
+    "ListOfFolders": [
+        "BE","PROJECTS","PC","PLAYGROUND","LECTURES","COMPLEMENTS","TEMP"
+    ],
+    "Exclude": [
+        "README.md","LICENSE",".gitignore"
+    ],
     "FixedWorkingDir":"false"
 }

@@ -13,12 +13,14 @@ def SettingsInit(PathToJSON):
     return SettingsClass.Settings(PathToJSON)
 
 # Parameters :
-default_path = r"/home/nlesquoy/ghq/github.com/LaTeX-Project-Manager/test"
-with open("app.cfg","r") as config:
+# default_path = r"/home/nlesquoy/ghq/github.com/LaTeX-Project-Manager/test"
+with open("app.cfg","r",newline='') as config:
     data = config.readlines()
-    PathToConfig = data[0]
-    SettingsLaunch = SettingsClass.Settings(PathToConfig) # Initialize settings -> TODO: create a function to find this file automatically
+    PathToConfig = data[0].rstrip("\n")
+    default_path = data[1]
     config.close()
+
+SettingsLaunch = SettingsClass.Settings(PathToConfig) # Initialize settings -> TODO: create a function to find this file automatically
 
 rich.print("[bold magenta]{0}[/bold magenta]".format(art.text2art("> LPM <")))
 action = Prompt.ask("What should I do ?", choices=["create","delete","inspect","configure","quit"], default="create")
@@ -55,15 +57,24 @@ elif action == "inspect":
         pass
 elif action == "configure":
     try:
-        with open("app.cfg",'r') as config:
+        with open("app.cfg","r",newline='') as config:
             data = config.readlines()
+            PathToConfig = data[0].rstrip("\n")
+            default_path = data[1]
             config.close()
-        configure = Confirm.ask("[blue] Do you want to modify the [bold] absolute [/bold] path to the settings ?",default=False)
-        if configure:
+        configure = Prompt.ask("What do you want to do ?",choices=["path/to/settings","path/to/default/folder"])
+        if configure == "path/to/settings":
             new = Prompt.ask("Where are the settings ?")
-            data[0] = new
-            with open('app.cfg','r') as config:
+            data[0] = new + "\n"
+            with open("app.cfg","w") as config:
                 config.writelines(data)
+                config.close()
+        elif configure == "path/to/default/folder":
+            new = Prompt.ask("Where should I create a new project by default ?")
+            data[1] = new + "\n"
+            with open("app.cfg","w") as config:
+                config.writelines(data)
+                config.close()
         else:
             rich.print("[italic blue]I have nothing to do ![/italic blue]")
     except:
