@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-import os # Pour la manipulation des dossiers
-import shutil # Pour la manipulation des fichiers
-import traceback # Pour la gestion des erreurs
 from PyPDF2 import PdfFileReader
-from PyPDF2 import PdfFileWriter
 # Définition des variables globales :
 path_folder = "C:\\Users\\NIC\\Documents\\GitHub\\latex_and_project\\LaTeX_Project_Manager"
 pdf_path = "C:\\Users\\NIC\\Documents\\GitHub\\latex_and_project\\LaTeX_Project_Manager\\test.pdf"
