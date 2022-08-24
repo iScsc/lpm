@@ -1,0 +1,36 @@
+{
+    "PathToSource":"/home/nlesquoy/ghq/github.com/LaTeX-Project-Manager/source_TeX",
+    "latex_class":[
+        {
+            "name":"beamer",
+            "dependencies":[
+                "mypackage.sty",
+                "packages.tex",
+                "beamer.tex"
+            ]
+        },
+        {
+            "name":"standard",
+            "dependencies":[
+                "mypackage.sty",
+                "packages.tex",
+                "standard.tex"
+            ]
+        },
+        {
+            "name":"fiche",
+            "dependencies":[
+                "mypackage.sty",
+                "bristol.cls",
+                "fiche.tex"
+            ]
+        }
+    ],
+    "ListOfFolders": [
+        "BE","PROJECTS","PC","PLAYGROUND","LECTURES","COMPLEMENTS","TEMP"
+    ],
+    "Exclude": [
+        "README.md","LICENSE",".gitignore"
+    ],
+    "FixedWorkingDir":"false"
+}
