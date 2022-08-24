@@ -1,13 +1,12 @@
 import os
 import shutil
 import json
-from typing import Any
-import InteractFunc
+import Interact
 
-def InitFolder(PathToFolder:str,ListOfFolders:list)->Any:
+def InitFolder(PathToFolder:str,ListOfFolders:list):
     for folder in ListOfFolders:
         if not os.path.exists(os.path.join(PathToFolder,folder)):
-            InteractFunc.MakeFolder(PathToFolder,folder)
+            Interact.MakeFolder(PathToFolder,folder)
 
 
 def GetAllFiles(PathToFolder:str)->list:
@@ -39,7 +38,7 @@ def CheckConvention(PathToFolder:str,PathToJSON:str)->bool:
                 break
     return False in FlagList
 
-def SortFiles(PathToFolder:str,PathToJSON:str)->Any:
+def SortFiles(PathToFolder:str,PathToJSON:str):
     if CheckConvention(PathToFolder,PathToJSON):
         FileList = GetAllFiles(PathToFolder)
         TargetFolder = GetAllFolders(PathToJSON)

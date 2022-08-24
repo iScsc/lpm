@@ -1,6 +1,6 @@
 # Settings.py - global variables
 import json
-import InteractFunc
+import Interact
 import os
 
 class Settings:
@@ -70,7 +70,7 @@ class Settings:
         for dep in DepList:
             if dep != ClassFile:
                 FileName,FileExtension = dep.split('.')
-                Result = InteractFunc.SearchTeX(FileName.removesuffix(FileExtension),Path) # TODO: Change removesuffix for > 3.9 solution
+                Result = Interact.SearchTeX(FileName.removesuffix(FileExtension),Path) # TODO: Change removesuffix for > 3.9 solution
                 if not Result:
                     return False
         return True

@@ -2,8 +2,8 @@
 import os
 import shutil
 import traceback
-import SettingsClass
-import InteractFunc
+import Settings
+import Interact
 
 class Project:
     """This a class to define the properties of a LaTeX project.
@@ -23,9 +23,9 @@ class Project:
         data = config.readlines()
         config.close()
     
-    SettingsInit = SettingsClass.Settings(data[0].rstrip("\n"))
-    ClassList = SettingsClass.Settings.GetClassList(SettingsInit)
-    PathToSource = SettingsClass.Settings.GetPathToSource(SettingsInit)
+    SettingsInit = Settings.Settings(data[0].rstrip("\n"))
+    ClassList = Settings.Settings.GetClassList(SettingsInit)
+    PathToSource = Settings.Settings.GetPathToSource(SettingsInit)
 
     def __init__(self,ProjectName,WorkingDir,LaTeXClass):
         """Constructor method.
@@ -54,9 +54,9 @@ class Project:
         :return: True if the project can be safely initialized, False if not.
         :rtype: bool
         """
-        InteractFunc.MakeFolder(self.WorkingDir,self.ProjectName)
+        Interact.MakeFolder(self.WorkingDir,self.ProjectName)
         return os.access(Project.PathToSource,os.W_OK | os.X_OK) and Project.CheckClass(self) and \
-        SettingsClass.Settings.CheckDep(Project.SettingsInit,self.LaTeXClass)
+        Settings.Settings.CheckDep(Project.SettingsInit,self.LaTeXClass)
 
     def CreateProject(self,images=True,pptx=False):
         """Create of project according to the information given in
@@ -70,11 +70,11 @@ class Project:
         """
         if Project.CheckInit(self):
         # utiliser la fonction pour checker si packages.sty ou bristol sont utilisés,
-            DepList = SettingsClass.Settings.GetClassDep(Project.SettingsInit,self.LaTeXClass)
+            DepList = Settings.Settings.GetClassDep(Project.SettingsInit,self.LaTeXClass)
             for dep in DepList:
-                InteractFunc.CopyTeX(self.WorkingDir,dep,self.ProjectName,Project.PathToSource) # Copy required TeX files
+                Interact.CopyTeX(self.WorkingDir,dep,self.ProjectName,Project.PathToSource) # Copy required TeX files
             if images:
-                InteractFunc.MakeFolder(os.path.join(self.WorkingDir,self.ProjectName),"images") # Create `images` folder
+                Interact.MakeFolder(os.path.join(self.WorkingDir,self.ProjectName),"images") # Create `images` folder
             Path = os.path.join(self.WorkingDir,self.ProjectName)
             try:
                 os.chdir(Path)
@@ -92,18 +92,18 @@ class Project:
             if self.LaTeXClass == "beamer":
                 os.rename("beamer.tex","main.tex")
             # Initialize local history file
-            InteractFunc.CreateHistory(self.WorkingDir)
+            Interact.CreateHistory(self.WorkingDir)
             # Add line corresponding to the newly created project in `history.txt`
-            InteractFunc.AddElementToHistory(self.WorkingDir,self.ProjectName)
+            Interact.AddElementToHistory(self.WorkingDir,self.ProjectName)
             # Create a `local_settings.json` file. This feature is not used for now.
-            InteractFunc.CreateLocalSettings(self.WorkingDir,self.ProjectName)
+            Interact.CreateLocalSettings(self.WorkingDir,self.ProjectName)
         else:
             print("No project was generated. Please retry.")
         
     def RemoveProject(self):
         """Delete a specified Project. This function is likely to be moved to :file:`InteractFunc.py`
         """
-        InteractFunc.RegisterDeletion(self.WorkingDir,self.ProjectName)
+        Interact.RegisterDeletion(self.WorkingDir,self.ProjectName)
         DelPath = os.path.join(self.WorkingDir,self.ProjectName)
         try:
             shutil.rmtree(DelPath)
