@@ -169,4 +169,11 @@ source_TeX/
 old/
 docs/
 test/
-old.txt
+other
+
+# Special venv
+lib64
+lib
+include
+bin
+pyvenv.cfg
