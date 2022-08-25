@@ -1,24 +1,25 @@
 # Standard Python Libraries
-import sys
 import os
 import pathlib
 import shutil
-import subprocess
 import time
 import traceback
-import typing
 import mmap
 import json
+import readline
 
-# 'Special' Libraries
+# Special Libraries
 import art
 import rich
+
+# 'rich' libraries
 from rich.prompt import Prompt
 from rich.prompt import Confirm
 from rich.markdown import Markdown
+from rich.console import Console
 
 # global variables
-with open("app.cfg", "r") as config_file:
+with open("src/app.cfg", "r") as config_file:
     config = config_file.readlines()
     config_file.close()
 
@@ -42,8 +43,8 @@ class Interact:
         folder_name: str,
     ) -> None:
         """Copies a file."""
-        original = pathlib.PosixPath(path_to_source, file_name)
-        target = pathlib.PosixPath(working_dir, folder_name, file_name)
+        original = pathlib.PosixPath(path_to_source) / file_name
+        target = pathlib.PosixPath(working_dir)/ folder_name / file_name
         shutil.copyfile(original, target)
 
     def search_file(search_word: str, file_name: str) -> bool:
@@ -139,7 +140,7 @@ class Settings:
             for i in range(len(settings_dict["latex_class"]))
         ]
 
-    def get_class_ldep(path_to_json: pathlib.PosixPath, class_name: str) -> list[str]:
+    def get_class_dep(path_to_json: pathlib.PosixPath, class_name: str) -> list[str]:
         """Get all LaTeX dependencies for a specified supported LaTeX class."""
         settings_dict = Settings.get_settings(path_to_json)
         class_list = Settings.get_class_list(path_to_json)
@@ -159,7 +160,7 @@ class Settings:
         class_file = "".join([class_name, ".tex"])  # main LaTeX file.
         path = pathlib.PosixPath(Settings.get_path_to_source(path_to_json), class_file)
         for dep in dep_list:
-            if dep != class_file and not Interact.search_file(dep, path):
+            if dep != class_file and not Interact.search_file(pathlib.PosixPath(dep).stem, path):
                 return False
         return True
 
@@ -176,14 +177,14 @@ class Project:
         self.working_dir = working_dir
         self.latex_class = latex_class
 
-    def CheckClass(self) -> bool:
+    def check_class(self) -> bool:
         """Check if 'latex_class' is a supported LaTeX document class."""
         if self.latex_class not in Project.class_list:
             return False
         else:
             return True
 
-    def CheckInit(self) -> bool:
+    def check_init(self) -> bool:
         """Check if the project can be initialized in the folder specified in
         the field 'working_dir' and if the LaTeX dependencies detailled in
         'settings.json' are correct by searching in the main TeX file for
@@ -192,18 +193,16 @@ class Project:
         Interact.make_folder(self.working_dir, self.project_name)
         return (
             os.access(Project.path_to_source, os.W_OK | os.X_OK)
-            and Project.CheckClass(self)
+            and Project.check_class(self)
             and Settings.check_dep(path_to_json, self.latex_class)
         )
 
-    def CreateProject(self, images=True):
-        """Create of project according to the information given in 'ProjectClass.Project'."""
-        if Project.CheckInit(self):
-            dep_list = Settings.Settings.get_class_dep(path_to_json, self.latex_class)
+    def create_project(self, images=True):
+        """Create of project according to the information given in 'Project.Project'."""
+        if Project.check_init(self):
+            dep_list = Settings.get_class_dep(path_to_json, self.latex_class)
             for dep in dep_list:
-                Interact.copy_file(
-                    self.working_dir, dep, self.project_name, Project.path_to_source
-                )  # Copy required TeX files
+                Interact.copy_file(self.working_dir,Project.path_to_source,dep,self.project_name) # Copy required TeX files
             if images:
                 Interact.make_folder(
                     os.path.join(self.working_dir, self.project_name), "images"
@@ -231,7 +230,7 @@ class Project:
         else:
             print("No project was generated. Please retry.")
 
-    def RemoveProject(self):
+    def remove_project(self):
         """Delete a specified Project."""
         Interact.register_deletion(self.working_dir, self.project_name)
         del_path = pathlib.Path(self.working_dir, self.project_name)
@@ -239,6 +238,5 @@ class Project:
             shutil.rmtree(del_path)
         except:
             traceback.print_exc()
-
 
 # Interface
