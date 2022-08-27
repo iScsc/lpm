@@ -24,13 +24,36 @@
                 "bristol.cls",
                 "fiche.tex"
             ]
+        },
+        {
+            "name":"isaeBE",
+            "dependencies":[
+                "mypackage.sty",
+                "isaeBE.cls",
+                "packages.tex"
+            ]
+        },
+        {
+            "name":"isaeReport",
+            "dependencies":[
+                "mypackage.sty",
+                "isaeReport.cls",
+                "packages.tex"
+            ]
+        },
+        {
+            "name":"isaePC",
+            "dependencies":[
+                "mypackage.sty",
+                "isaePC.cls",
+                "packages.tex"
+            ]
         }
     ],
-    "ListOfFolders": [
+    "list_of_folders": [
         "BE","PROJECTS","PC","PLAYGROUND","LECTURES","COMPLEMENTS","TEMP"
     ],
-    "Exclude": [
+    "exclude": [
         "README.md","LICENSE",".gitignore"
-    ],
-    "FixedWorkingDir":"false"
+    ]
 }
