@@ -1,4 +1,5 @@
 # Standard Python Libraries
+import sys
 import os
 import pathlib
 import shutil
@@ -6,7 +7,6 @@ import time
 import traceback
 import mmap
 import json
-import readline
 
 # Special Libraries
 import art
@@ -18,7 +18,7 @@ from rich.prompt import Confirm
 from rich.markdown import Markdown
 from rich.console import Console
 
-# global variables
+# Initialization
 with open("src/app.cfg", "r") as config_file:
     config = config_file.readlines()
     config_file.close()
@@ -63,7 +63,7 @@ class Interact:
         """Initializes the `history.txt` file in a new directory."""
         path_to_history = pathlib.PosixPath(path_to_dir, "history.txt")
         if not path_to_history.exists():
-            with open(path_to_history, "w") as history:
+            with open(path_to_history, "x") as history:
                 history.write(art.text2art("history"))
                 history.write(
                     ">>> Initializing 'history.txt' for this repository ...\n"
@@ -224,9 +224,9 @@ class Project:
             if self.latex_class == "beamer":
                 os.rename("beamer.tex", "main.tex")
             # Initialize local history file
-            Interact.create_history(self.working_dir)
+            # Interact.create_history(self.working_dir)
             # Add line corresponding to the newly created project in `history.txt`
-            Interact.add_element_to_history(self.working_dir, self.project_name)
+            # Interact.add_element_to_history(self.working_dir, self.project_name)
         else:
             print("No project was generated. Please retry.")
 
@@ -240,3 +240,68 @@ class Project:
             traceback.print_exc()
 
 # Interface
+
+rich.print("[bold magenta]{0}[/bold magenta]".format(art.text2art("> LPM <")))
+action = Prompt.ask("What should I do ?", choices=["create","delete","inspect","configure","name","quit"], default="create")
+if action == "create":
+    PathToDir = Prompt.ask("Where should I create the new project ?",default=default_dir)
+    path = pathlib.Path(PathToDir)
+    if isinstance(path,pathlib.PurePath):
+        ProjectName = Prompt.ask("How should I name it ?",default="test")
+        LaTeXClass = Prompt.ask("Which LaTeX document class should be used ?",choices=Settings.get_class_list(path_to_json),default="standard")
+        ImagesFolder = Confirm.ask("Do you want to create a folder for images ?",default=False)
+        launch = Confirm.ask("Do you want to launch the generation of the new project ?",default=True)
+        if launch:
+            NewProject = Project(ProjectName,PathToDir,LaTeXClass)
+            Project.create_project(NewProject,images=ImagesFolder)
+        else:
+            rich.print("[bold red]>>> Emergency stop - Nothing was generated ! <<<[/bold red]")
+elif action == "delete":
+    PathToDir = Prompt.ask("Where is the target ?",default=default_dir)
+    ProjectName = Prompt.ask("What's its name ?",default="test")
+    execute = Confirm.ask("Do you really want to delete this project ?",default=False)
+    if execute:
+        try:
+            Project.remove_project(Project(ProjectName,PathToDir,"standard"))
+        except:
+            rich.print("[bold red]>>> Something went wrong <<<[/bold red]")
+    else:
+        rich.print("[bold red]>>> Emergency stop - Nothing was deleted ! <<<[/bold red]")
+elif action == "inspect":
+    seeGlobJSON = Confirm.ask("Do you want to see the global configuration file ?",default=True)
+    if seeGlobJSON:
+        config = Settings.get_settings(path_to_json)
+        rich.print_json(data=config)
+    else:
+        pass
+elif action == "configure":
+    try:
+        with open("app.cfg","r",newline='') as config:
+            data = config.readlines()
+            PathToConfig = data[0].rstrip("\n")
+            default_dir = data[1]
+            config.close()
+        configure = Prompt.ask("What do you want to do ?",choices=["path/to/settings","path/to/default/folder"])
+        if configure == "path/to/settings":
+            new = Prompt.ask("Where are the settings ?")
+            data[0] = new + "\n"
+            with open("app.cfg","w") as config:
+                config.writelines(data)
+                config.close()
+        elif configure == "path/to/default/folder":
+            new = Prompt.ask("Where should I create a new project by default ?")
+            data[1] = new + "\n"
+            with open("app.cfg","w") as config:
+                config.writelines(data)
+                config.close()
+        else:
+            rich.print("[italic blue]I have nothing to do ![/italic blue]")
+    except:
+        rich.print("[bold red]>>> Something went wrong <<<[/bold red]")
+elif action == "name":
+    MarkDown = Prompt.ask("Which file do you want to see ?",choices=["commit.md","convention.md","../README.md"])
+    with open(MarkDown,"r+") as file:
+        rich.print(Markdown(file.read()))
+    sys.exit(0)
+else:
+    rich.print("[italic blue]I have nothing to do ![/italic blue]")
