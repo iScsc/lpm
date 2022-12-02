@@ -24,7 +24,8 @@ with open("src/app.cfg", "r") as config_file:
     config_file.close()
 
 path_to_json = config[0].rstrip("\n")
-default_dir = config[1]
+default_dir = config[1].rstrip("\n")
+install_state = config[2]
 
 
 class Interact:
@@ -241,35 +242,51 @@ class Project:
 
 # Interface
 
+def init_app(state: str):
+    if state == 'false':
+        os.mkdir(os.path.join(os.getenv('HOME'),r'/.local/share/lpm')) # create default folder
+        with open("app.cfg","r",newline='') as config:
+            data = config.readlines()
+            default_dir = data[1].rstrip("\n")
+            config.close()
+        default_dir = os.path.join(os.getenv('HOME'),r'/.local/share/lpm')
+        data[1] = default_dir.join('/n')
+        data[2] = 'true'
+        with open("app.cfg","w") as config:
+            config.writelines(data)
+            config.close()
+    else:
+        return True
+
 rich.print("[bold magenta]{0}[/bold magenta]".format(art.text2art("> LPM <")))
 action = Prompt.ask("What should I do ?", choices=["create","delete","inspect","configure","name","quit"], default="create")
 if action == "create":
-    PathToDir = Prompt.ask("Where should I create the new project ?",default=default_dir)
-    path = pathlib.Path(PathToDir)
+    path_to_dir = Prompt.ask("Where should I create the new project ?",default=default_dir)
+    path = pathlib.Path(path_to_dir)
     if isinstance(path,pathlib.PurePath):
-        ProjectName = Prompt.ask("How should I name it ?",default="test")
-        LaTeXClass = Prompt.ask("Which LaTeX document class should be used ?",choices=Settings.get_class_list(path_to_json),default="standard")
-        ImagesFolder = Confirm.ask("Do you want to create a folder for images ?",default=False)
+        project_name = Prompt.ask("How should I name it ?",default="test")
+        latex_class = Prompt.ask("Which LaTeX document class should be used ?",choices=Settings.get_class_list(path_to_json),default="standard")
+        images_folder = Confirm.ask("Do you want to create a folder for images ?",default=False)
         launch = Confirm.ask("Do you want to launch the generation of the new project ?",default=True)
         if launch:
-            NewProject = Project(ProjectName,PathToDir,LaTeXClass)
-            Project.create_project(NewProject,images=ImagesFolder)
+            NewProject = Project(project_name,path_to_dir,latex_class)
+            Project.create_project(NewProject,images=images_folder)
         else:
             rich.print("[bold red]>>> Emergency stop - Nothing was generated ! <<<[/bold red]")
 elif action == "delete":
-    PathToDir = Prompt.ask("Where is the target ?",default=default_dir)
-    ProjectName = Prompt.ask("What's its name ?",default="test")
+    path_to_dir = Prompt.ask("Where is the target ?",default=default_dir)
+    project_name = Prompt.ask("What's its name ?",default="test")
     execute = Confirm.ask("Do you really want to delete this project ?",default=False)
     if execute:
         try:
-            Project.remove_project(Project(ProjectName,PathToDir,"standard"))
+            Project.remove_project(Project(project_name,path_to_dir,"standard"))
         except:
             rich.print("[bold red]>>> Something went wrong <<<[/bold red]")
     else:
         rich.print("[bold red]>>> Emergency stop - Nothing was deleted ! <<<[/bold red]")
 elif action == "inspect":
-    seeGlobJSON = Confirm.ask("Do you want to see the global configuration file ?",default=True)
-    if seeGlobJSON:
+    see_glob_json = Confirm.ask("Do you want to see the global configuration file ?",default=True)
+    if see_glob_json:
         config = Settings.get_settings(path_to_json)
         rich.print_json(data=config)
     else:
@@ -278,7 +295,7 @@ elif action == "configure":
     try:
         with open("app.cfg","r",newline='') as config:
             data = config.readlines()
-            PathToConfig = data[0].rstrip("\n")
+            path_to_config = data[0].rstrip("\n")
             default_dir = data[1]
             config.close()
         configure = Prompt.ask("What do you want to do ?",choices=["path/to/settings","path/to/default/folder"])
